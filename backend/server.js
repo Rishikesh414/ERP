@@ -11,6 +11,7 @@ import institutionRouter from "./routes/institution.js";
 
 
 
+
 dotenv.config();
 
 const app = express();
@@ -20,7 +21,7 @@ app.use(express.json());
 
 const MONGO_URL =
   process.env.MONGO_URL || "mongodb://127.0.0.1:27017/first-crop_db";
-
+  //  process.env.MONGO_URL||"mongodb+srv://DTW:secret123@cluster0.vwhagph.mongodb.net/DTW?appName=Cluster0"; //Atlas
 mongoose
   .connect(MONGO_URL)
   .then(() => console.log("MongoDB connected"))
