@@ -1,0 +1,177 @@
+/* src/pages/Institution_admin/InstitutionLayout.css */
+
+/* Shell */
+.layout-shell {
+  display: flex;
+  min-height: 100vh;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* Top bar (mobile only) */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  padding: 0 16px;
+
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 50;
+}
+
+.menu-btn {
+  border: none;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 1.25rem;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.topbar-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background: radial-gradient(circle at top, #020617, #020617 55%, #000 100%);
+  border-right: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 40;
+}
+
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e5e7eb;
+}
+
+.sidebar-subtitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #6b7280;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+/* Nav link base style; NavLink will add "active" automatically */
+.nav-link {
+  display: block;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.nav-link:hover {
+  background: rgba(148, 163, 184, 0.12);
+  color: #e5e7eb;
+  transform: translateX(2px);
+}
+
+/* Active state */
+.nav-link.active {
+  background: linear-gradient(90deg, #4f46e5, #0ea5e9);
+  color: #f9fafb;
+}
+
+/* Logout button */
+.sidebar-logout {
+  margin-top: auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ef4444;
+  background: #991b1b;
+  color: #fee2e2;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.sidebar-logout:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  min-width: 0;
+  background: radial-gradient(circle at top left, #1f2937, #020617 55%);
+  padding: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.main-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Backdrop for mobile when sidebar is open */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  z-index: 30;
+}
+
+/* Responsive behavior */
+@media (max-width: 900px) {
+  .layout-shell {
+    padding-top: 52px;
+  }
+
+  .topbar {
+    display: flex;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 52px;
+    bottom: 0;
+    left: -260px;
+    height: auto;
+    box-shadow: 8px 0 30px rgba(15, 23, 42, 0.9);
+    transition: left 0.2s ease-out;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .main {
+    padding: 18px 14px;
+  }
+}
