@@ -8,12 +8,7 @@ import dotenv from "dotenv";
 import companyRouter from "./routes/company.js";
 import authRouter from "./routes/auth.js";
 import institutionRouter from "./routes/institution.js";
-
-
-
-
 dotenv.config();
-
 const app = express();
 
 app.use(cors());
