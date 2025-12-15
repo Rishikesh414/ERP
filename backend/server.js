@@ -8,6 +8,8 @@ import dotenv from "dotenv";
 import companyRouter from "./routes/company.js";
 import authRouter from "./routes/auth.js";
 import institutionRouter from "./routes/institution.js";
+import branchRouter from "./routes/branch.js";
+import inventoryRouter from "./routes/inventory.js";
 dotenv.config();
 const app = express();
 
@@ -25,6 +27,8 @@ mongoose
 app.use("/api/company", companyRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/institution", institutionRouter);
+app.use("/api/branch", branchRouter);
+app.use("/api/inventory", inventoryRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`API running on port ${PORT}`));

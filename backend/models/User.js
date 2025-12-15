@@ -33,7 +33,31 @@ const userSchema = new mongoose.Schema(
       default: "active"
     },
     resetToken: String,
-    resetTokenExpiry: Date
+    resetTokenExpiry: Date,
+    // Staff-specific fields
+    staffCategory: {
+      type: String,
+      enum: ["teaching", "non-teaching"],
+      required: function() { return this.role === "staff"; }
+    },
+    age: {
+      type: Number,
+      min: 18,
+      max: 70,
+      required: function() { return this.role === "staff"; }
+    },
+    address: {
+      type: String,
+      required: function() { return this.role === "staff"; }
+    },
+    location: {
+      type: String,
+      required: function() { return this.role === "staff"; }
+    },
+    photo: {
+      data: Buffer,
+      contentType: String
+    }
   },
   { timestamps: true }
 );

@@ -16,6 +16,44 @@ const studentSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true
+    },
+    class: {
+      type: String,
+      required: true
+    },
+    section: {
+      type: String,
+      required: true
+    },
+    rollNo: {
+      type: String,
+      required: true
+    },
+    parentName: {
+      type: String,
+      required: true
+    },
+    phoneNo: {
+      type: String,
+      required: true
+    },
+    address: {
+      type: String,
+      required: true
+    },
+    admissionNumber: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    academicYear: {
+      type: String,
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ["active", "left", "transferred"],
+      default: "active"
     }
   },
   { timestamps: true }
