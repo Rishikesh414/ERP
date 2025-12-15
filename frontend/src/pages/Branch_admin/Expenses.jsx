@@ -1,9 +1,9 @@
 import React from "react";
 
-function Dashboard() { 
+export default function Expenses() { 
     return (
         <div>
-            <h1>Branch Admin Dashboard</h1>
+            <h1>Branch Admin Expenses Page</h1>
         </div>
     );
 }   
