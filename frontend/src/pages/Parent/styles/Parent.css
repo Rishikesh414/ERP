@@ -1,0 +1,554 @@
+/* Parent Module Professional Styling */
+
+.parent-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.parent-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.parent-header {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.parent-header-info {
+  flex: 1;
+}
+
+.parent-header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.parent-header p {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.parent-header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  background: #667eea;
+  color: white;
+}
+
+/* Student Info Card */
+.student-info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.student-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-item {
+  border-left: 4px solid #667eea;
+  padding-left: 1rem;
+}
+
+.info-item label {
+  color: #999;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.info-item p {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Tabs Navigation */
+.parent-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.parent-tab {
+  flex: 1;
+  padding: 1.25rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  transition: all 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.parent-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom-color: white;
+}
+
+.parent-tab:hover {
+  background: #f5f5f5;
+}
+
+.parent-tab.active:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Marks Report Section */
+.marks-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.marks-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #667eea;
+}
+
+.exam-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #667eea;
+}
+
+.exam-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.exam-title {
+  font-weight: 600;
+  color: #333;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.exam-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.marks-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.marks-table thead {
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+}
+
+.marks-table th,
+.marks-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.marks-table th {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.marks-table td {
+  color: #666;
+}
+
+.marks-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.marks-percentage {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.marks-percentage.excellent {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.marks-percentage.good {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.marks-percentage.average {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Attendance Section */
+.attendance-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.attendance-card {
+  background: linear-gradient(135deg, #667eea15, #764ba215);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  border: 2px solid #667eea;
+}
+
+.attendance-card h4 {
+  color: #666;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.attendance-value {
+  color: #667eea;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.attendance-card.high {
+  border-color: #11998e;
+  background: linear-gradient(135deg, #11998e15, #38ef7d15);
+}
+
+.attendance-card.high .attendance-value {
+  color: #11998e;
+}
+
+/* Fees Report Section */
+.fees-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fees-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.fee-card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fee-card.pending {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.fee-card.success {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.fee-card h4 {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.fee-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.fee-value small {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+}
+
+/* Fee Structure */
+.fee-structure {
+  margin: 2rem 0;
+}
+
+.fee-structure h4 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.fee-items {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.fee-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+}
+
+.fee-item-name {
+  color: #333;
+  font-weight: 500;
+}
+
+.fee-item-amount {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Payment History */
+.payment-history {
+  margin-top: 2rem;
+}
+
+.payment-history h4 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.payment-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border-bottom: 2px solid #667eea;
+}
+
+.payment-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.payment-amount {
+  color: #11998e;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.payment-mode {
+  color: #666;
+  font-size: 0.85rem;
+  background: #e8f0fe;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #999;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Loading */
+.parent-loading {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid white;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Guard */
+.parent-guard {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.parent-guard h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.parent-guard p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .parent-page {
+    padding: 1rem;
+  }
+
+  .parent-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .parent-header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .parent-header-actions button {
+    width: 100%;
+  }
+
+  .student-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parent-tabs {
+    flex-direction: column;
+  }
+
+  .parent-tab {
+    text-align: center;
+    border-bottom: 3px solid #e0e0e0;
+  }
+
+  .exam-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .marks-table {
+    font-size: 0.9rem;
+  }
+
+  .marks-table th,
+  .marks-table td {
+    padding: 0.75rem;
+  }
+
+  .fees-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .fee-item,
+  .payment-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

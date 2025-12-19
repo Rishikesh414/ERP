@@ -158,6 +158,51 @@
   text-decoration: underline;
 }
 
+/* DIVIDER */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.divider::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #d1d5db;
+  margin-right: 10px;
+}
+
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #d1d5db;
+  margin-left: 10px;
+}
+
+/* PARENT LOGIN BUTTON */
+.parent-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #667eea;
+  background: transparent;
+  color: #667eea;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.parent-btn:hover {
+  background: #667eea;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .enterprise-container {

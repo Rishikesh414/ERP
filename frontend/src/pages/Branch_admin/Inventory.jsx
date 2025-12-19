@@ -1,4 +1,3 @@
-// frontend/src/pages/Branch_admin/Inventory.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/Inventory.css";

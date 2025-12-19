@@ -1,4 +1,3 @@
-// src/pages/Branch_admin/Dashboard.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../Company_admin/styles/CompanyDashboard.css";

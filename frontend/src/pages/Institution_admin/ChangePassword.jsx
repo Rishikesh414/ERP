@@ -1,4 +1,3 @@
-// src/pages/Institution_admin/ChangePassword.jsx
 import { useState } from "react";
 import axios from "axios";
 import "../Institution_admin/styles/ChangePassword.css";

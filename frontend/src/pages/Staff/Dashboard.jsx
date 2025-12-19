@@ -58,7 +58,7 @@ export default function Dashboard() {
 
   const filteredStudents = useMemo(() => {
     return (students || []).filter((st) => {
-      const matchesClass = filters.class === "all" || String(st.class) === filters.class;
+      const matchesClass = filters.class === "all" || String(st.class).trim() === String(filters.class).trim();
       const matchesSearch = filters.search.trim() === "" ||
         st.name?.toLowerCase().includes(filters.search.toLowerCase()) ||
         st.rollNo?.toLowerCase().includes(filters.search.toLowerCase());

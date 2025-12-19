@@ -1,4 +1,3 @@
-// src/pages/Institution_admin/Branches.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/Branches.css";

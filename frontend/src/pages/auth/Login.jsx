@@ -1,4 +1,3 @@
-// src/pages/Auth/Login.jsx
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -41,10 +40,7 @@ export default function Login() {
         navigate("/staff/dashboard");
       } else if (user.role === "parent") {
         navigate("/parent/dashboard");
-      } else {
-        // fallback if some other role
-        navigate("/");
-      }
+      } 
     } catch (err) {
       setError(err.response?.data?.message || "Invalid email or password");
     } finally {
@@ -105,6 +101,18 @@ export default function Login() {
             <div className="forgot-link">
               <Link to="/forgot-password">Forgot password?</Link>
             </div>
+
+            <div className="divider">
+              <span>or</span>
+            </div>
+
+            <button 
+              type="button" 
+              className="parent-btn"
+              onClick={() => navigate("/parent/login")}
+            >
+              Login as Parent
+            </button>
           </form>
         </div>
       </div>

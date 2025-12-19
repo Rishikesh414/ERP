@@ -1,4 +1,3 @@
-// src/pages/Institution_admin/InstitutionLayout.jsx
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "./styles//InstitutionLayout.css";

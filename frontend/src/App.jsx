@@ -35,6 +35,7 @@ import StaffAttendance from "./pages/Staff/Attendance";
 import StaffReports from "./pages/Staff/Reports";
 import StaffCollectFee from "./pages/Staff/CollectFee";
 import StaffChangePassword from "./pages/Staff/ChangePassword";
+import ParentLogin from "./pages/Parent/ParentLogin";
 import ParentDashboard from "./pages/Parent/Dashboard";
 
 function App() {
@@ -84,7 +85,8 @@ function App() {
           <Route path="change-password" element={<StaffChangePassword />} />
         </Route>
 
-        {/* Other roles */}
+        {/* Parent */}
+        <Route path="/parent/login" element={<ParentLogin />} />
         <Route path="/parent/dashboard" element={<ParentDashboard />} />
 
         {/* Fallback */}
