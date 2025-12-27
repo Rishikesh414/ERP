@@ -17,6 +17,7 @@ export default function StaffManagement() {
     location: "",
     staffCategory: "teaching",
     customCategory: "",
+    nonTeachingType: "",
     classes: "",
     photo: null,
   });
@@ -54,6 +55,7 @@ export default function StaffManagement() {
     if (name === "staffCategory") {
       const updates = { [name]: value };
       if (value !== "other") updates.customCategory = "";
+      if (value !== "non-teaching") updates.nonTeachingType = "";
       if (value !== "teaching") updates.classes = "";
       setFormData(prev => ({ ...prev, ...updates }));
       return;
@@ -81,6 +83,7 @@ export default function StaffManagement() {
       location: "",
       staffCategory: "teaching",
       customCategory: "",
+      nonTeachingType: "",
       classes: "",
       photo: null,
     });
@@ -102,6 +105,12 @@ export default function StaffManagement() {
       }
     }
 
+    // when non-teaching, capture specific type as staffSubcategory
+    if (payload.staffCategory === "non-teaching") {
+      const sub = (payload.nonTeachingType || "").trim();
+      if (sub) payload.staffSubcategory = sub;
+    }
+
     // age should be a number
     if (payload.age) {
       const n = Number(payload.age);
@@ -120,6 +129,8 @@ export default function StaffManagement() {
 
     // remove temporary customCategory field from payload (its value moved into staffCategory)
     delete payload.customCategory;
+    // remove UI-only nonTeachingType field
+    delete payload.nonTeachingType;
 
     console.log("Staff payload:", payload);
 
@@ -364,6 +375,22 @@ export default function StaffManagement() {
               </div>
             )}
 
+            {formData.staffCategory === "non-teaching" && (
+              <div className="form-row">
+                <div className="form-group" style={{ flex: 1 }}>
+                  <label>Non-Teaching Type *</label>
+                  <input
+                    type="text"
+                    name="nonTeachingType"
+                    value={formData.nonTeachingType}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="e.g. Accountant, Librarian, Driver"
+                  />
+                </div>
+              </div>
+            )}
+
             {formData.staffCategory === "teaching" && (
               <div className="form-row">
                 <div className="form-group" style={{ flex: 1 }}>
@@ -429,7 +456,11 @@ export default function StaffManagement() {
                   <p className="staff-address">{member.address}</p>
                   {(() => {
                     const categoryClass = member.staffCategory === "teaching" ? "teaching" : member.staffCategory === "non-teaching" ? "non-teaching" : "other";
-                    const categoryLabel = member.staffCategory === "teaching" ? "Teaching Staff" : member.staffCategory === "non-teaching" ? "Non-Teaching Staff" : (member.customCategory || "Other");
+                    const categoryLabel = member.staffCategory === "teaching"
+                      ? "Teaching Staff"
+                      : member.staffCategory === "non-teaching"
+                        ? `Non-Teaching Staff${member.staffSubcategory ? ` - ${member.staffSubcategory}` : ""}`
+                        : member.staffCategory; // show custom category value
                     return (
                       <>
                         <span className={`staff-category ${categoryClass}`}>

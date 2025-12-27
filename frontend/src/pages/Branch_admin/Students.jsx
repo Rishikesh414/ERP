@@ -28,6 +28,7 @@ export default function Students() {
     address: "",
     admissionNumber: "",
     academicYear: "",
+    dateOfBirth: "",
     status: "active",
     fees: "",
     residency: "hosteller", // 'hosteller' or 'day-scholar'
@@ -41,6 +42,20 @@ export default function Students() {
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const branchId = user.branch_id;
+
+  const formatDateForInput = (value) => {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "";
+    return parsed.toISOString().slice(0, 10);
+  };
+
+  const formatDateForDisplay = (value) => {
+    if (!value) return "N/A";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return "N/A";
+    return parsed.toLocaleDateString();
+  };
 
   // Check if user is authenticated and has branch_id
   if (!user.id || !branchId) {
@@ -157,6 +172,7 @@ export default function Students() {
       address: "",
       admissionNumber: "",
       academicYear: "",
+      dateOfBirth: "",
       status: "active",
       fees: "",
       residency: "hosteller",
@@ -180,6 +196,7 @@ export default function Students() {
       if (payload.fees !== undefined && payload.fees !== "") payload.fees = Number(payload.fees);
       if (payload.busFees !== undefined && payload.busFees !== "") payload.busFees = Number(payload.busFees);
       if (payload.hostelFees !== undefined && payload.hostelFees !== "") payload.hostelFees = Number(payload.hostelFees);
+      if (!payload.dateOfBirth) delete payload.dateOfBirth;
 
       // compute parentName for backend compatibility (combine mother + father if both present)
       const mother = payload.motherName?.trim();
@@ -187,6 +204,9 @@ export default function Students() {
       if (mother && father) payload.parentName = `${mother} / ${father}`;
       else if (mother) payload.parentName = mother;
       else if (father) payload.parentName = father;
+
+      // Keep motherName and fatherName in payload for backend storage
+      // Don't delete them anymore
 
       // include only the relevant fee field based on residency
       if (payload.residency === "day-scholar") {
@@ -198,11 +218,7 @@ export default function Students() {
         delete payload.hostelFees;
       }
 
-      // remove local-only fields we don't want to send if backend expects parentName
-      delete payload.motherName;
-      delete payload.fatherName;
-
-      // Keep image, aadharCardNumber, rationCardNumber in payload
+      // Keep image, aadharCardNumber, rationCardNumber, motherName, fatherName in payload
 
       console.log("Student payload:", payload);
 
@@ -240,22 +256,43 @@ export default function Students() {
 
   const handleEdit = (student) => {
     setEditingStudent(student);
+    
+    // Parse parentName to extract mother and father names
+    let motherName = "";
+    let fatherName = "";
+    
+    if (student.motherName && student.fatherName) {
+      motherName = student.motherName;
+      fatherName = student.fatherName;
+    } else if (student.parentName) {
+      // Try to split parentName if it contains " / "
+      const parts = student.parentName.split(" / ");
+      if (parts.length === 2) {
+        motherName = parts[0].trim();
+        fatherName = parts[1].trim();
+      } else {
+        // If no separator, put it all in mother name
+        motherName = student.parentName;
+      }
+    }
+    
     setFormData({
-      name: student.name,
-      class: student.class,
-      section: student.section,
-      rollNo: student.rollNo,
-      motherName: student.motherName || student.parentName || "",
-      fatherName: student.fatherName || "",
-      phoneNo: student.phoneNo,
-      address: student.address,
-      admissionNumber: student.admissionNumber,
-      academicYear: student.academicYear,
-      status: student.status,
-      fees: student.fees || "",
+      name: student.name || "",
+      class: student.class || "",
+      section: student.section || "",
+      rollNo: student.rollNo || "",
+      motherName: motherName,
+      fatherName: fatherName,
+      phoneNo: student.phoneNo || "",
+      address: student.address || "",
+      admissionNumber: student.admissionNumber || "",
+      academicYear: student.academicYear || "",
+      dateOfBirth: formatDateForInput(student.dateOfBirth),
+      status: student.status || "active",
+      fees: student.fees !== undefined && student.fees !== null ? student.fees : "",
       residency: student.residency || "hosteller",
-      busFees: student.busFees || "",
-      hostelFees: student.hostelFees || "",
+      busFees: student.busFees !== undefined && student.busFees !== null ? student.busFees : "",
+      hostelFees: student.hostelFees !== undefined && student.hostelFees !== null ? student.hostelFees : "",
       emisNo: student.emisNo || "",
       image: student.image || "",
       aadharCardNumber: student.aadharCardNumber || "",
@@ -461,6 +498,18 @@ export default function Students() {
                   value={formData.phoneNo}
                   onChange={handleInputChange}
                   required
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label>Date of Birth</label>
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -738,6 +787,10 @@ export default function Students() {
                 <div className="detail-item">
                   <label>Name</label>
                   <p>{viewingStudent?.name}</p>
+                </div>
+                <div className="detail-item">
+                  <label>Date of Birth</label>
+                  <p>{formatDateForDisplay(viewingStudent?.dateOfBirth)}</p>
                 </div>
                 <div className="detail-item">
                   <label>Roll No</label>

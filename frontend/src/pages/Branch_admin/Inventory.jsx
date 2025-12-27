@@ -28,6 +28,7 @@ export default function Inventory() {
     id: "",
     name: "",
     category: "",
+    otherCategory: "",
     description: "",
     minQuantity: 0,
     unit: "pieces",
@@ -173,9 +174,13 @@ export default function Inventory() {
           unit: itemForm.unit,
         });
       } else {
+        const categoryValue =
+          itemForm.category === "other" && itemForm.otherCategory.trim()
+            ? itemForm.otherCategory.trim()
+            : itemForm.category;
         await axios.post(`${API_BASE}/items`, {
           branch_id: branchId,
-          category: itemForm.category,
+          category: categoryValue,
           name: itemForm.name,
           description: itemForm.description,
           minQuantity: Number(itemForm.minQuantity),
@@ -313,6 +318,7 @@ export default function Inventory() {
       id: "",
       name: "",
       category: "",
+      otherCategory: "",
       description: "",
       minQuantity: 0,
       unit: "pieces",
@@ -516,6 +522,20 @@ export default function Inventory() {
                     </option>
                   ))}
                 </select>
+                {itemForm.category === "other" && !itemForm.id && (
+                  <div style={{ marginTop: "8px" }}>
+                    <label>Enter Category *</label>
+                    <input
+                      type="text"
+                      value={itemForm.otherCategory}
+                      onChange={(e) =>
+                        setItemForm({ ...itemForm, otherCategory: e.target.value })
+                      }
+                      placeholder="e.g., sports_kits"
+                      required
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label>Description</label>
