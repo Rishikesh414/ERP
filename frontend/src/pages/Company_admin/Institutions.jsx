@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/CompanyDashboard.css";
+import "./styles/Institutions.css";
 
 const API_URL = "http://localhost:5000/api/company/institutions";
 
@@ -136,6 +137,7 @@ export default function Institutions() {
       <div className="dash-card" style={{ marginBottom: 14 }}>
         <form className="inst-form" onSubmit={handleSubmit}>
           <input
+            className="inst-input"
             name="name"
             placeholder="Name"
             value={form.name}
@@ -143,6 +145,7 @@ export default function Institutions() {
             required
           />
           <input
+            className="inst-input"
             name="institution_id"
             placeholder="Institution ID"
             value={form.institution_id}
@@ -150,6 +153,7 @@ export default function Institutions() {
             required
           />
           <input
+            className="inst-input"
             name="location"
             placeholder="Location"
             value={form.location}
@@ -159,6 +163,7 @@ export default function Institutions() {
           {/* max branches per institution */}
           <input
             type="number"
+            className="inst-input"
             name="maxBranches"
             min={1}
             max={7}
@@ -170,18 +175,19 @@ export default function Institutions() {
           {/* logo upload */}
           <input
             type="file"
+            className="inst-file"
             accept="image/*"
             onChange={(e) => setLogoFile(e.target.files[0] || null)}
           />
           {uploadingLogo && <span className="dash-hint">Uploading logo…</span>}
 
-          <button type="submit">
+          <button type="submit" className="inst-btn inst-btn-primary">
             {editing ? "Update" : "Create"}
           </button>
           {editing && (
             <button
               type="button"
-              style={{ marginLeft: 8 }}
+              className="inst-btn inst-btn-secondary"
               onClick={resetForm}
             >
               Cancel
@@ -208,14 +214,9 @@ export default function Institutions() {
                 <tr key={inst._id}>
                   <td>
                     <img
+                      className="inst-logo"
                       src={`http://localhost:5000/api/company/institutions/${inst._id}/logo`}
                       alt={inst.name}
-                      style={{
-                        width: 40,
-                        height: 40,
-                        objectFit: "cover",
-                        borderRadius: 8
-                      }}
                       onError={(e) => {
                         e.target.style.display = "none";
                       }}
@@ -226,10 +227,12 @@ export default function Institutions() {
                   <td>{inst.location}</td>
                   <td>{inst.maxBranches ?? 7}</td>
                   <td>
-                    <button onClick={() => startEdit(inst)}>Edit</button>
-                    <button onClick={() => handleDelete(inst._id)}>
-                      Delete
-                    </button>
+                    <div className="inst-table-actions">
+                      <button className="inst-btn inst-btn-outline inst-btn-sm" onClick={() => startEdit(inst)}>Edit</button>
+                      <button className="inst-btn inst-btn-danger inst-btn-sm" onClick={() => handleDelete(inst._id)}>
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -1,0 +1,117 @@
+/* =============================================
+   Users Page - Scoped Styles (.user-*)
+   Professional, neat, and responsive input layout
+============================================= */
+
+/* Form layout */
+.user-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  align-items: start;
+  grid-auto-flow: row dense;
+}
+
+/* Inputs & selects */
+.user-input,
+.user-select {
+  height: 42px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  color: #111827;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.user-input::placeholder {
+  color: #9ca3af;
+}
+
+.user-input:focus,
+.user-select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Buttons */
+.user-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  align-self: start;
+}
+
+.user-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.user-btn-primary {
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.user-btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.user-btn-outline {
+  background: #ffffff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+.user-btn-outline:hover {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.user-btn-danger {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.user-btn-sm {
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+/* Table actions */
+.user-table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .user-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .user-form {
+    grid-template-columns: 1fr;
+  }
+}

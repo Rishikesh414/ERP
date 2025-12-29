@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles/CompanyDashboard.css";
+import "./styles/Users.css";
 
 const API_URL = "http://localhost:5000/api/company/admins";
 const INST_URL = "http://localhost:5000/api/company/institutions";
@@ -118,6 +119,7 @@ export default function Users() {
       <div className="dash-card" style={{ marginBottom: 14 }}>
         <form className="user-form" onSubmit={handleSubmit}>
           <input
+            className="user-input"
             name="name"
             placeholder="Name"
             value={form.name}
@@ -125,6 +127,7 @@ export default function Users() {
             required
           />
           <input
+            className="user-input"
             name="email"
             type="email"
             placeholder="Email"
@@ -133,12 +136,14 @@ export default function Users() {
             required
           />
           <input
+            className="user-input"
             name="phone"
             placeholder="Phone"
             value={form.phone}
             onChange={handleChange}
           />
           <select
+            className="user-select"
             name="institution_id"
             value={form.institution_id}
             onChange={handleChange}
@@ -151,13 +156,13 @@ export default function Users() {
               </option>
             ))}
           </select>
-          <button type="submit">
+          <button type="submit" className="user-btn user-btn-primary">
             {editing ? "Update" : "Create"}
           </button>
           {editing && (
             <button
               type="button"
-              style={{ marginLeft: 8 }}
+              className="user-btn user-btn-secondary"
               onClick={resetForm}
             >
               Cancel
@@ -189,10 +194,12 @@ export default function Users() {
                   <td>{a.institution_id?.name || "-"}</td>
                   <td>{a.status}</td>
                   <td>
-                    <button onClick={() => startEdit(a)}>Edit</button>
-                    <button onClick={() => handleDelete(a._id)}>
-                      Delete
-                    </button>
+                    <div className="user-table-actions">
+                      <button className="user-btn user-btn-outline user-btn-sm" onClick={() => startEdit(a)}>Edit</button>
+                      <button className="user-btn user-btn-danger user-btn-sm" onClick={() => handleDelete(a._id)}>
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

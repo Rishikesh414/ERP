@@ -1,0 +1,152 @@
+/* =============================================
+   Institutions Page - Scoped Styles (.inst-*)
+   Keeps styling isolated to avoid cross-page issues
+============================================= */
+
+/* Form layout */
+.inst-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  align-items: start;
+  grid-auto-flow: row dense;
+}
+
+/* Inputs */
+.inst-input {
+  height: 42px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  color: #111827;
+  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inst-input::placeholder {
+  color: #9ca3af;
+}
+
+.inst-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* File input */
+.inst-file {
+  height: 42px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  align-self: start;
+}
+
+/* Buttons */
+.inst-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  align-self: start;
+}
+
+.inst-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.inst-btn-primary {
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.inst-btn-primary:hover {
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.18);
+}
+
+.inst-btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+  border-color: #e5e7eb;
+}
+
+.inst-btn-outline {
+  background: #ffffff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+.inst-btn-outline:hover {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.inst-btn-danger {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.inst-btn-danger:hover {
+  box-shadow: 0 12px 28px rgba(239, 68, 68, 0.18);
+}
+
+.inst-btn-sm {
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+/* Table actions */
+.inst-table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Logo */
+.inst-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Small hint alignment within form */
+.dash-hint {
+  justify-self: start;
+  grid-column: 1 / -1;
+}
+
+/* =============================
+   Responsive tweaks
+============================= */
+@media (max-width: 900px) {
+  .inst-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .inst-form {
+    grid-template-columns: 1fr;
+  }
+}
