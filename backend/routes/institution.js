@@ -15,7 +15,7 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Helper function to log activity
-const logActivity = async (type, description, entity, entityId, entityName, institutionId = null) => {
+const logActivity = async (type, description, entity, entityId, entityName, institutionId = null, branchId = null) => {
   try {
     const activity = new ActivityLog({
       type,
@@ -23,7 +23,8 @@ const logActivity = async (type, description, entity, entityId, entityName, inst
       entity,
       entityId,
       entityName,
-      institutionId
+      institutionId,
+      branchId
     });
     await activity.save();
   } catch (err) {
@@ -80,6 +81,18 @@ router.post("/:institutionId/branch-admins", async (req, res) => {
 
     await user.setPassword("Branch@123");
     await user.save();
+
+    // Log activity
+    await logActivity(
+      "admin_created",
+      `Branch admin "${name}" created for "${branch.branch_name}"`,
+      "admin",
+      user._id,
+      name,
+      institutionId,
+      branch_id
+    );
+
     const populated = await user.populate("branch_id", "branch_name");
     res.status(201).json(populated);
   } catch (err) {
@@ -322,6 +335,7 @@ router.get("/branches/:branchId/logo", async (req, res) => {
 router.get("/:institutionId/dashboard", async (req, res) => {
   try {
     const { institutionId } = req.params;
+    const { branchId } = req.query;
 
     const inst = await Institution.findById(institutionId).select(
       "name address"
@@ -335,11 +349,12 @@ router.get("/:institutionId/dashboard", async (req, res) => {
       "branch_name location contactPhone"
     );
 
-    const [studentAgg, feeAgg] = await Promise.all([
+    const [studentAgg, feeCollectedAgg, feePendingAgg, activities] = await Promise.all([
       Student.aggregate([
         {
           $match: {
             institution_id: new mongoose.Types.ObjectId(institutionId),
+            ...(branchId && { branch_id: new mongoose.Types.ObjectId(branchId) })
           },
         },
         {
@@ -353,24 +368,63 @@ router.get("/:institutionId/dashboard", async (req, res) => {
         {
           $match: {
             institution_id: new mongoose.Types.ObjectId(institutionId),
+            ...(branchId && { branch_id: new mongoose.Types.ObjectId(branchId) }),
+            status: { $in: ["approved", ""] }
           },
         },
         {
           $group: {
             _id: null,
-            totalFee: { $sum: "$amount" },
+            totalCollected: { $sum: "$amount" },
+            count: { $sum: 1 }
           },
         },
       ]),
+      FeePayment.aggregate([
+        {
+          $match: {
+            institution_id: new mongoose.Types.ObjectId(institutionId),
+            ...(branchId && { branch_id: new mongoose.Types.ObjectId(branchId) }),
+            status: "pending"
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            totalPending: { $sum: "$amount" },
+            count: { $sum: 1 }
+          },
+        },
+      ]),
+      // Filter activities by branch if branchId is provided
+      branchId
+        ? ActivityLog.find({
+            institutionId,
+            branchId: new mongoose.Types.ObjectId(branchId)
+          })
+          .sort({ createdAt: -1 })
+          .limit(10)
+        : ActivityLog.find({ institutionId })
+          .sort({ createdAt: -1 })
+          .limit(10)
     ]);
 
     const totals = {
       branches: branches.length,
       students: studentAgg[0]?.totalStudents || 0,
-      feeCollected: feeAgg[0]?.totalFee || 0,
+      feeCollected: feeCollectedAgg[0]?.totalCollected || 0,
+      feePending: feePendingAgg[0]?.totalPending || 0,
+      feeCollectionCount: feeCollectedAgg[0]?.count || 0,
+      feePendingCount: feePendingAgg[0]?.count || 0
     };
 
-    const recentActivities = []; // fill later if needed
+    // Format recent activities for display
+    const recentActivities = activities.map((a) => ({
+      id: a._id,
+      description: a.description,
+      when: new Date(a.createdAt).toLocaleString(),
+      by: a.entity
+    }));
 
     res.json({
       institution: {
