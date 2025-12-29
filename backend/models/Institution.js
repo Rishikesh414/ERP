@@ -36,14 +36,16 @@ const activityLogSchema = new mongoose.Schema(
         "admin_deleted",
         "branch_created",
         "branch_updated",
-        "branch_deleted"
+        "branch_deleted",
+        "student_created",
+        "student_deleted"
       ],
       required: true
     },
     description: { type: String, required: true },
     entity: {
       type: String,
-      enum: ["institution", "admin", "branch"],
+      enum: ["institution", "admin", "branch", "student"],
       required: true
     },
     entityId: mongoose.Schema.Types.ObjectId,
@@ -51,6 +53,10 @@ const activityLogSchema = new mongoose.Schema(
     institutionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Institution"
+    },
+    branchId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch"
     }
   },
   { timestamps: true }
