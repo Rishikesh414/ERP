@@ -31,6 +31,82 @@ export default function Expenses() {
 
   const handleChange = (e) => { const { name, value } = e.target; setForm(prev => ({ ...prev, [name]: value })); };
 
+  const downloadExpenses = (period) => {
+    if (!expenses || expenses.length === 0) {
+      alert('No expenses to download');
+      return;
+    }
+
+    const now = new Date();
+    let filteredExpenses = [];
+    
+    switch(period) {
+      case 'daily':
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        filteredExpenses = expenses.filter(exp => {
+          const expDate = new Date(exp.date);
+          return expDate >= today;
+        });
+        break;
+      
+      case 'weekly':
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        filteredExpenses = expenses.filter(exp => {
+          const expDate = new Date(exp.date);
+          return expDate >= weekAgo;
+        });
+        break;
+      
+      case 'monthly':
+        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        filteredExpenses = expenses.filter(exp => {
+          const expDate = new Date(exp.date);
+          return expDate >= monthStart;
+        });
+        break;
+      
+      default:
+        filteredExpenses = expenses;
+    }
+
+    if (filteredExpenses.length === 0) {
+      alert(`No expenses found for ${period} period`);
+      return;
+    }
+
+    // Prepare CSV content
+    const headers = ['Date', 'Category', 'Description', 'Amount'];
+    const csvRows = [headers.join(',')];
+    
+    filteredExpenses.forEach(exp => {
+      const row = [
+        exp.date ? new Date(exp.date).toLocaleDateString() : '',
+        exp.category || '',
+        `"${(exp.description || '').replace(/"/g, '""')}"`, // Escape quotes
+        exp.amount || 0
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    // Add total row
+    const total = filteredExpenses.reduce((sum, exp) => sum + (exp.amount || 0), 0);
+    csvRows.push('');
+    csvRows.push(`Total,,,"₹ ${total}"`);
+
+    const csvContent = csvRows.join('\n');
+    
+    // Create and download file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `expenses_${period}_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const submit = async () => {
     if (!form.description || !form.amount) return alert('Description and amount required');
     const payload = { ...form, amount: Number(form.amount), date: form.date || new Date().toISOString() };
@@ -66,12 +142,36 @@ export default function Expenses() {
   return (
     <div className="dash-panel">
       <div className="dash-panel-head">
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',gap:12}}>
           <div>
             <h2>Expenses</h2>
             <p>Track branch expenses</p>
           </div>
-          {offlineMode && <div style={{color:'#b91c1c',fontWeight:600}}>Offline mode: using local data</div>}
+          <div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}}>
+            <span style={{fontSize:14,fontWeight:500}}>Download:</span>
+            <button 
+              onClick={() => downloadExpenses('daily')} 
+              style={{padding:'6px 12px',background:'#10b981',color:'#fff',border:'none',borderRadius:6,cursor:'pointer',fontSize:13}}
+              title="Download today's expenses"
+            >
+              Daily
+            </button>
+            <button 
+              onClick={() => downloadExpenses('weekly')} 
+              style={{padding:'6px 12px',background:'#3b82f6',color:'#fff',border:'none',borderRadius:6,cursor:'pointer',fontSize:13}}
+              title="Download last 7 days expenses"
+            >
+              Weekly
+            </button>
+            <button 
+              onClick={() => downloadExpenses('monthly')} 
+              style={{padding:'6px 12px',background:'#8b5cf6',color:'#fff',border:'none',borderRadius:6,cursor:'pointer',fontSize:13}}
+              title="Download current month expenses"
+            >
+              Monthly
+            </button>
+            {offlineMode && <div style={{color:'#b91c1c',fontWeight:600,marginLeft:8}}>Offline mode</div>}
+          </div>
         </div>
       </div>
 
