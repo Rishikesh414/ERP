@@ -705,15 +705,19 @@ router.get("/:branchId/staff/:staffId/photo", async (req, res) => {
 router.get("/:branchId/students", async (req, res) => {
   try {
     const { branchId } = req.params;
-    const { status, class: classFilter, academicYear } = req.query;
+    const { status, class: classFilter, academicYear, limit } = req.query;
 
     let filter = { branch_id: branchId };
     if (status) filter.status = status;
     if (classFilter) filter.class = classFilter;
     if (academicYear) filter.academicYear = academicYear;
 
+    // Select only necessary fields for list view to reduce data transfer
     const students = await Student.find(filter)
-      .sort({ createdAt: -1 });
+      .select('name class section rollNo phoneNo admissionNumber academicYear status dateOfBirth fees residency image')
+      .sort({ createdAt: -1 })
+      .limit(limit ? parseInt(limit) : 1000) // Default limit to prevent loading too many records
+      .lean(); // Use lean() for better performance
 
     res.json(students);
   } catch (err) {
