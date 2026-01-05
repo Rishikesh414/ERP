@@ -12,6 +12,7 @@ import branchRouter from "./routes/branch.js";
 import inventoryRouter from "./routes/inventory.js";
 import staffRouter from "./routes/staff.js";
 import parentRouter from "./routes/parent.js";
+import busesRouter from "./routes/buses.js";
 
 // -------------------- Config --------------------
 dotenv.config();
@@ -43,6 +44,7 @@ app.use("/api/branch", branchRouter);
 app.use("/api/inventory", inventoryRouter);
 app.use("/api/staff", staffRouter);
 app.use("/api/parent", parentRouter);
+app.use("/api/buses", busesRouter);
 
 // -------------------- Start Server --------------------
 const startServer = async () => {
