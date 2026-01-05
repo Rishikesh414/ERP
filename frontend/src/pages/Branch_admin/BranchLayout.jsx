@@ -13,6 +13,9 @@ export default function BranchLayout() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("branchId");
+    localStorage.removeItem("institutionId");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

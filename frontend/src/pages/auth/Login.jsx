@@ -28,6 +28,14 @@ export default function Login() {
       // 3) Save to localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      
+      // Store branchId and institutionId for quick access
+      if (user.branch_id) {
+        localStorage.setItem("branchId", user.branch_id);
+      }
+      if (user.institution_id) {
+        localStorage.setItem("institutionId", user.institution_id);
+      }
 
       // 4) Redirect based on role
       if (user.role === "company_admin") {

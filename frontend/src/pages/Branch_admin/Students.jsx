@@ -73,10 +73,16 @@ export default function Students() {
   useEffect(() => {
     loadStudents();
     loadStats();
+  }, []);
+
+  useEffect(() => {
+    if (loading) return; // Skip on initial load
+    loadStudents();
   }, [filters]);
 
   const loadStudents = async () => {
     try {
+      setLoading(true);
       const params = {};
       if (filters.status !== "all") params.status = filters.status;
       if (filters.class !== "all") params.class = filters.class;
